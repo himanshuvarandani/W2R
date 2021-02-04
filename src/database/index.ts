@@ -1,8 +1,9 @@
 import Mongoose from "mongoose"
 import dotenv from "dotenv"
+import path from "path"
 
 let database: Mongoose.Connection
-dotenv.config()
+dotenv.config({ path: path.resolve(__dirname, ".env") })
 
 export const connect = () => {
   const uri = process.env.MONGOURI

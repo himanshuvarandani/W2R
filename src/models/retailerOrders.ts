@@ -10,6 +10,6 @@ const orderSchema = new Schema({
   bookedAt: { type: String, default: new Date().toString() },
 })
 
-const Orders = model("retailerOrders", orderSchema, "retailerOrders")
+const RetailerOrders = model("retailerOrders", orderSchema, "retailerOrders")
 
-export default Orders
+export default RetailerOrders

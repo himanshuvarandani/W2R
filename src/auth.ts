@@ -4,21 +4,20 @@ import Login from "./models/login"
 
 const router = Router()
 
-router.get("/register", (req, resp) => {
+router.post("/register", (req, resp) => {
   connect()
-  const user = Login.insertMany(
-    [
-      {
-        email: req.params.email,
-        password: req.params.password,
-        type: req.params.type,
-      },
-    ],
+  const user = Login.create(
+    {
+      email: req.body.email,
+      password: req.body.password,
+      id: req.body.id,
+      type: req.body.type,
+    },
     (err) => {
       if (err) {
         resp.send("Error")
       } else {
-        resp.send("Hey, you are registered.")
+        resp.send({ status: "ok" })
       }
     }
   )
@@ -27,14 +26,12 @@ router.get("/register", (req, resp) => {
 router.get("/login", (req, resp) => {
   connect()
   const user = Login.find(
-    { email: req.params.email, password: req.params.password },
+    { email: req.query.email, password: req.query.password },
     (err: any, user: any) => {
       if (err) {
         resp.send("Error")
-      } else if (user.length) {
-        resp.send("Hey, you are logged in.")
       } else {
-        resp.send("Sorry, Invalid email and password.")
+        resp.send(user)
       }
     }
   )
